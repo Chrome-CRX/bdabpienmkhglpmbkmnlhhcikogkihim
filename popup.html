@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <script src="utils.js"></script>
+    <script src="trie.js"></script>
+    <script src="db.js"></script>
+    <script src="popup.js"></script>
+    <style>
+      html {
+      overflow-y: scroll;
+      }
+      body {
+      width: 400px;
+      height: 350px;
+      align: center;
+      overflow-y: auto;
+      font-family: SegoeUI, Helvetica, Arial, sans-serif;
+      background-color: #f3efea;
+      min-width: 300px;
+      margin: 0px;
+      }
+
+      /* header */
+      header {
+      height: 40px;
+      font-family: SegoeUI, Helvetica, Arial, sans-serif;
+      text-align: center;
+      vertical-align: middle;
+      background-color: #d2c0b3;
+      border-radius: 3px;
+      padding-bottom: 8px;
+      }
+      div#header:before{
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      }
+
+      /* table */
+      table {
+      color: #333;
+      font-family: SegoeUI, Helvetica, Arial, sans-serif;
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      padding: 5px;
+      }
+      td, th {
+      border: 1px solid transparent; /* No more visible border */
+      }
+      th {
+      background: #ded6d6;
+      border-radius: 3px 3px 0px 0px;
+      font-weight: bold;
+      padding: 2px;
+      }
+      td {
+      text-align: center;
+      font-size: 14px
+      }
+      td.a{
+      color: black;
+      }
+      td a:visited, td a:link{
+      color: black;
+      }
+
+      /* button */
+      button {
+      background-color:#74ad5a;
+      border:1px solid #3b6e22;
+      display:inline-block;
+      cursor:pointer;
+      color:#ffffff;
+      font-family:Arial;
+      font-size:13px;
+      font-weight:bold;
+      padding:3px 12px;
+      text-decoration:none;
+      width: 80px;
+      }
+      button:hover {
+      background-color:#68a54b;
+      }
+      button.block {
+      background-color:#ad5a5a;
+      border:1px solid #6e2222;
+      display:inline-block;
+      cursor:pointer;
+      color:#ffffff;
+      font-family:Arial;
+      font-size:13px;
+      font-weight:bold;
+      padding:3px 12px;
+      text-decoration:none;
+      }
+      button.block:hover {
+      background-color:#a54b4ba54b4b;
+      }
+      button:active {
+      position:relative;
+      top:1px;
+      }
+
+      /* data */
+      .nodisp{
+      display: none;
+      }
+
+      div.data{
+      padding-top: 10px;
+      padding-bottom: 4px;
+      overflow-y: auto;
+      max-height: 120px;
+      }
+      div.data.keyword{
+      padding-top: 15px;
+      }
+
+      div#nodata{
+      padding-top: 10px;
+      padding-left: 10px;
+      font-size:13px;
+      }
+
+      /* tooltip  */
+      #tooltiptext {
+      display: none;
+      background-color: #3e3a3a;
+      color: white;
+      border: solid thin gray;
+      border-radius: 6px;
+      padding: 6px 6px 8px 10px;
+      font-size: small;
+      position: absolute;
+      z-index: 1;
+      }
+
+      #keywordImg{
+      padding: 0px 2px 2px 2px;
+      vertical-align: middle;
+      }
+    </style>
+  </head>
+
+  <header>
+    <div id="header"><h1>Block Youtube Channels</h1></div>
+  </header>
+
+  <body>
+    <div id="nodata">No channels have been blocked yet.</div>
+    <div class="data channels">
+      <table id="table"></table>
+    </div>
+
+    <div class="data keyword">
+      <table id="keywordTable"></table>
+    </div>
+
+
+    <div id="tooltiptext">Video whose title contains this string will be hidden. The string matching is case-insensitive.</div>
+
+  </body>
+</html>
