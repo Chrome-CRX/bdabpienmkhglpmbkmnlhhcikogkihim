@@ -54,7 +54,7 @@ function sendToContentScript(msg){
 }
 
 function __sendChannels(){
-    chrome.storage.sync.get("channels", function(items){
+    chrome.storage.local.get("channels", function(items){
 	console.log("[EV] items: " + JSON.stringify(items));
 	items = items || {}; items.channels = items.channels || {};
 	sendToContentScript(items);
@@ -64,7 +64,7 @@ function __sendChannels(){
 // chPath: string: channel path
 // chName: string: channel name
 function __blockChannel(chPath, chName){
-    chrome.storage.sync.get("channels", function(items){
+    chrome.storage.local.get("channels", function(items){
 	console.log("[EV] __blockChannel, old: " + JSON.stringify(items));
 	items = items || {}; items.channels = items.channels || {};
 
@@ -73,7 +73,7 @@ function __blockChannel(chPath, chName){
 	else items.channels[chName] = chPath;
 
 	//update storage
-	chrome.storage.sync.set(items, function(){
+	chrome.storage.local.set(items, function(){
 	    if(chrome.runtime.lastError) console.log("[EV] error: " + JSON.stringify(chrome.runtime.lastError));
 	    else console.log("[EV] saved");
 	    __sendChannels();

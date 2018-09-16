@@ -97,7 +97,7 @@ function main() {
 	    var chnInfo, siblingSpan, wrapperSpan, button, buttonSpn, items, isChnBlocked;
 	    chnInfo = ytl.getPageInfo();
 	    if (!chnInfo) return;
-	    chrome.storage.sync.get("channels", function (items) {
+	    chrome.storage.local.get("channels", function (items) {
 		items = items || {};
 		isChnBlocked = ytl.isBlocked(chnInfo.chName, items.channels);
 		if(document.getElementById("block-channel")){
@@ -171,7 +171,7 @@ function main() {
 	},
 
 	hideVideos: function () {
-	    chrome.storage.sync.get(["keywords", "keywordIndex", "channels"], function (items) {
+	    chrome.storage.local.get(["keywords", "keywordIndex", "channels"], function (items) {
 		items = items || {};
 		var liElems, cnt;
 		cnt = 0;

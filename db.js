@@ -4,7 +4,7 @@ function blockChannelCore(chnInfo, successCallback){
     chName = chnInfo.chName;
     channelId = chnInfo.chId;
     chURL = chnInfo.chURL;
-    chrome.storage.sync.get("channels", function(items){
+    chrome.storage.local.get("channels", function(items){
 	//console.log("blockChannel, old: " + JSON.stringify(items));
 	items = items || {}; items.channels = items.channels || {};
 
@@ -13,7 +13,7 @@ function blockChannelCore(chnInfo, successCallback){
 	else items.channels[chName] = [ channelId, chURL ];
 	
 	//update storage
-	chrome.storage.sync.set(items, function(){
+	chrome.storage.local.set(items, function(){
 	    if(chrome.runtime.lastError) console.log("save error: " + JSON.stringify(chrome.runtime.lastError));
 	    else{
 		if(successCallback) successCallback();
@@ -36,7 +36,7 @@ function blockKeywordCore(keyword, blocking, successCallback){
     var keywordId;
     if(hasInvalidChars(keyword)) return;  //utils.js
 
-    chrome.storage.sync.get(["keywords", "keywordIndex", "keywordTrie"], function(items){
+    chrome.storage.local.get(["keywords", "keywordIndex", "keywordTrie"], function(items){
 	//console.log("blockKeywordCore, old: " + JSON.stringify(items));
 	items = items || {}; items.keywords = items.keywords || {};
 	items.keywordIndex = items.keywordIndex || {}; items.keywordTrie = items.keywordTrie || {};
@@ -63,7 +63,7 @@ function blockKeywordCore(keyword, blocking, successCallback){
 	console.log(items);
 	
 	//update storage
-	chrome.storage.sync.set(items, function(){
+	chrome.storage.local.set(items, function(){
 	    if(chrome.runtime.lastError) console.log("save error: " + JSON.stringify(chrome.runtime.lastError));
 	    else{
 		if(successCallback) successCallback();

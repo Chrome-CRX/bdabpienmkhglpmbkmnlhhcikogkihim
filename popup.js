@@ -4,14 +4,14 @@ function refreshPopup(){
 }
 
 function rebuildTable(){
-    chrome.storage.sync.get("channels", function(items){
+    chrome.storage.local.get("channels", function(items){
 	items = items || {}; items.channels = items.channels || {};
 	populateTable(items.channels);
     });
 }
 
 function rebuildKeywordTable(){
-    chrome.storage.sync.get(["keywords", "keywordIndex"], function(items){
+    chrome.storage.local.get(["keywords", "keywordIndex"], function(items){
 	items = items || {}; items.keywords = items.keywords || {};
 	items.keywordIndex = items.keywordIndex || {};
 	populateKeywordsTable(items);
@@ -154,7 +154,7 @@ function keywordKeyoressEvent(event){
 function unblockKeywordEvent(){
     var keyword, keywordId;
     keywordId = this.id + "";
-    chrome.storage.sync.get("keywordIndex", function(items){
+    chrome.storage.local.get("keywordIndex", function(items){
 	items = items || {}; items.keywordIndex = items.keywordIndex || {};
 	keyword = items.keywordIndex[keywordId];
 	blockKeywordCore(keyword, false, rebuildKeywordTable);  //db.js
